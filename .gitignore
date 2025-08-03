@@ -1,1 +1,5 @@
 .ipynb_checkpoints/
+6-Sagemaker-Final_Pipeline_Math_Check/
+__pycache__/
+model/
+model_dir/
