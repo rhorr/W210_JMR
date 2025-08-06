@@ -1,0 +1,28 @@
+﻿Date:8/5/25,
+Architecture Flow,URI/ARN
+Golden Record (Not for Use but reference),s3://sagemaker-us-east-2-917456409349/sagemaker/adoption/golden_record/df_cat_dog_harmonized.csv
+Landing Zone for unencoded incl. CSV (Pipeline Start),s3://landingzoneadoption/sagemaker/adoption/landing_zone_sample/df_cat_dog_harmonized_Sample_No_Known_Outcome.csv
+Lambda Function 1 - Encoding,arn:aws:lambda:us-east-2:917456409349:function:encoding_csv_1
+Landing Zone for Encoded incl CSV,s3://sagemaker-us-east-2-917456409349/sagemaker/adoption/encoded_zone_sample/df_cat_dog_harmonized_Sample_With_No_Known_Outcome_ENCODED.csv
+Lambda Function 2 - Serverless/Prediction,arn:aws:lambda:us-east-2:917456409349:function:endpoint_score_return
+Serverless Endpoint for XGboost- Adoption Prediction,arn:aws:sagemaker:us-east-2:917456409349:endpoint/sagemaker-xgboost-2025-07-17-01-08-23-168
+Landing zone for Adoption Predicted/Probability incl CSV,s3://sagemaker-us-east-2-917456409349/sagemaker/adoption/output_zone_sample/sample_data_output.csv
+Lambda Function 3 - Shap Values (SHAO),arn:aws:lambda:us-east-2:917456409349:function:SHAO
+Landing Zone for Pre_SHAP summarizer incl CSV,s3://finalzoneoutput/landing_zone_pre_summarizer/final_with_shap.csv
+Lambda Function 4- Summarize percentile of Shap,arn:aws:lambda:us-east-2:917456409349:function:Shap_Baseline
+Landing Zone for Shap Output incl CSV,s3://finalzoneoutput/landing_zone_shap_output_summarized/final_with_shap_ratios.csv
+Lambda Function 5-LOS,arn:aws:lambda:us-east-2:917456409349:function:XGB_Los_Endpoint
+Serverless Endpoint XGB-LOS,arn:aws:sagemaker:us-east-2:917456409349:endpoint/xgb-los-endpoint
+Landing Zone LOS incl CSV,s3://xgb-los-multi/landing-zone-los/final_with_stay_length_predicted.csv
+Lambda Function 6 XGB-Multi,arn:aws:lambda:us-east-2:917456409349:function:endpoint_XGB_Multiclass
+Serverless Endpoint XGB - Multi,arn:aws:sagemaker:us-east-2:917456409349:endpoint/xgb-multi-endpoint3
+Landing Zone including final csv output,s3://xgb-los-multi/lz-multiclass/final_pipeline_prediction.csv
+,
+Other Infra,URI/ARN
+Encoder.pkl for Shap Values,s3://sagemaker-us-east-2-917456409349/sagemaker/adoption/encoders_model_files/clean_label_encoders_dict.pkl
+XGB Boost Model-Adoption - Tar.gz File (for Shap),s3://dockerevalcontainer/processing/input/model/model.tar.gz
+Python script called by Lambda function to run Scikit for Shap Values in Docker Container,s3://dockerevalcontainer/processing/input/code/shap_process.py
+Docker Container to Run Shap Calcs,917456409349.dkr.ecr.us-east-2.amazonaws.com/my-custom-sklearn
+Shap Dictionary for all features in Adoption XGBoost,s3://dockerevalcontainer/processing/input/code/global_shap_summary_2rows.csv
+XGB LOS Tar Model File,s3://xgb-los-multi/xgb-los-model-code/output/sagemaker-xgboost-2025-07-27-22-15-45-215/output/model.tar.gz
+XGB Multiclass Tar Model File,s3://sagemaker-us-east-2-917456409349/xgb-los-multi/xgb-multi-code//output/sagemaker-xgboost-2025-07-28-02-50-37-648/output/
